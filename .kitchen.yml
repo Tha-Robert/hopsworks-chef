@@ -33,6 +33,7 @@ platforms:
 suites:
   - name: default
     run_list:
+       - recipe[hopshosts::default]
        - recipe[kagent::install]
        - recipe[hopsworks::install]
        - recipe[ndb::install]

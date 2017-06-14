@@ -3,6 +3,9 @@ source 'https://supermarket.chef.io'
 
 
 cookbook 'java'
+
+cookbook 'hopshosts', github: "Tha-Robert/hops-hosts-chef", branch: "master"
+
 cookbook 'kagent', github: "Tha-Robert/kagent-chef", branch: "master"
 cookbook 'hops', github: "hopshadoop/hops-hadoop-chef", branch: "master"
 cookbook 'ndb', github: "hopshadoop/ndb-chef", branch: "master"

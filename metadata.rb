@@ -12,6 +12,7 @@ source_url       "https://github.com/hopshadoop/hopsworks-chef"
   supports os
 end
 
+depends 'hopshosts'
 depends 'glassfish'
 depends 'ndb'
 depends 'kagent'
