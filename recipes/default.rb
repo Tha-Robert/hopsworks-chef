@@ -860,18 +860,17 @@ bash "jupyter-pixiedust" do
       export PIXIEDUST_HOME=#{pixiedust_home}
       export SPARK_HOME=#{node['hadoop_spark']['base_dir']}
       export SCALA_HOME=#{scala_home}
-      pip install matplotlib
-      pip install pixiedust 
-      jupyter pixiedust install --silent
-
-      wget https://github.com/cloudant-labs/spark-cloudant/releases/download/v2.0.0/#{cloudant}
+      pip --no-cache-dir install matplotlib
+      pip --no-cache-dir install pixiedust
+      
       chown #{node['jupyter']['user']} -R #{pixiedust_home}
 
-# pythonwithpixiedustspark22 - install in /usr/local/share/jupyter/kernels
+      su #{node["hopsworks"]["user"]}  -c "jupyter pixiedust install --silent"
+      su #{node["hopsworks"]["user"]}  -c "wget https://github.com/cloudant-labs/spark-cloudant/releases/download/v2.0.0/#{cloudant}"
+      
+      # pythonwithpixiedustspark22 - install in /usr/local/share/jupyter/kernels
       if [ -d /home/#{node["hopsworks"]["user"]}/.local/share/jupyter/kernels ] ; then
-#         chown #{node['hopsworks']['user']} -R /home/#{node["hopsworks"]["user"]}/.local/
-         jupyter-kernelspec install /home/#{node["hopsworks"]["user"]}/.local/share/jupyter/kernels/pythonwithpixiedustspark2[0-9]
-#         chown #{node['hopsworks']['user']} -R /home/#{node["hopsworks"]["user"]}/.local/share/jupyter/kernels/
+         su #{node["hopsworks"]["user"]}  -c "jupyter-kernelspec install /home/#{node["hopsworks"]["user"]}/.local/share/jupyter/kernels/pythonwithpixiedustspark2[0-9]"
       fi
     EOF
     not_if "test -f #{pixiedust_home}/bin/#{cloudant}"
