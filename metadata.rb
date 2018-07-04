@@ -720,6 +720,10 @@ attribute "tensorflow/dir",
 :description => "Base installation directory",
 :type => "string"
 
+attribute "tensorflow/custom_url",
+	  :description => "Custom url to fetch tensorflow whl from can be http://, https:// or file://",
+	  :type => "string"
+
 attribute "download_url",
 :description => "url for binaries",
 :type => "string"
